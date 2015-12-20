@@ -1,0 +1,95 @@
+//welsey osumo
+//9am
+//this prooject asks the user to enter a name and searches a textfile t odetermine how popular the name is for both genders
+#include <fstream>
+#include <iostream>
+#include <string>
+#include <cstdlib>
+using namespace std;
+//pre none 
+//post a name is inputed into the string input variable
+void getInput(string& input);
+//pre the moneky variable, string girl, boy, are initialized and have a set value
+//post the fucntion creates a values for the indexes that are past through refrenced
+void getCounter(string monkey, string boy[], string girl[], int& bIndex, int& gIndex, int size);
+
+int main()
+{
+	//variabel decalaraton
+	const int size = 2000;
+	string monkey, boyName[size], girlName[size];
+	int i = 0, order, bIndex, gIndex;
+	ifstream infile;//object for textfile
+	char userInput = 'Y';
+	char boyNames, girlNames;
+
+	infile.open("baby.txt");//opening the file
+	if (infile.good()) {//if statement to make sure the file is runnign good
+
+
+		//while loop that runs accoridng the lists parameters
+		while (infile >> order)
+		{
+			infile >> boyName[i] >> girlName[i];//storing the name into two arrays
+			i++;//changing the array elemetn
+		}
+
+
+		while (toupper(userInput) == 'Y')
+		{
+			//calling the functions	
+			getInput(monkey);
+			getCounter(monkey, boyName, girlName, bIndex, gIndex, order);
+
+
+			if (bIndex <= order)
+				cout << monkey << " is ranked " << bIndex << " in popularity among boys.\n";//outputinng the poularity for boys
+			else
+				cout << monkey << " is not ranked among the top 1000 boy names.\n";//if user enters name that isnt top 1000 for boys
+
+			if (gIndex <= order)
+				cout << monkey << " is ranked " << gIndex << " in popularity among girls.\n";//populatiry for girls
+			else
+				cout << monkey << " is not ranked among the top 1000 girl names.\n";// if the named entered is not i nthe top 1000 for girls
+
+
+			infile.close();//closes the file
+			infile.clear();
+			cout << "Shall we go around again. Y or any letter to exit?";//asking user if they want to go back to the prgram
+			cin >> userInput;
+
+		}
+	}
+else
+	{
+		cout << "The tesxtfile baby.txt cannot be found \n";//error if the textfiel cant be fouund
+		exit(1);//exits the program
+	}
+
+	
+	return 0;
+}
+void getInput(string& input)//fucntion fo getting the name of the person
+{
+	cout << "Enter your name  name.\n";
+	cin >> input;
+}
+
+void getCounter(string monkey, string boy[], string girl[], int& bIndex, int& gIndex, int size)//conter fuctnuon to count the index of the name
+{
+	int boyCounter = 0, girlCounter = 0;
+
+	//while loop to find the name inside the textfile . and then finds the palce ti exists for boys
+	while (boy[boyCounter] != monkey && boyCounter <= size)//program runs and counts until it hits the the monkey target
+	{
+		boyCounter++;
+	}//while loop to find the name inside the textfile . and then finds the palce ti exists for girls
+	while (girl[girlCounter] != monkey && girlCounter <= size)
+	{
+		girlCounter++;
+	}
+	//both boy and girl indexes
+	bIndex = boyCounter + 1;//add +1 because arrays start at 0 while list starts at 1
+	gIndex = girlCounter + 1;
+
+}
