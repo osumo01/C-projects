@@ -1,0 +1,109 @@
+/*	 Project  1
+Wesley Osumo
+Section: 9 am
+
+This program asks the user how many terms to estimate the vlaue of pie using a series formula. it then asks the user if wants to calculate are or circum by askig for the radius after completing the pi
+calculation */
+
+#include <iostream>
+using namespace std;
+
+int main() {
+
+	while (1 < 2) {
+
+		//initializing varables
+		int x, r,n;
+		 double pi = 0;//using long double to enhace precisionm, by holding more data
+		char answer;
+
+		cout << "if you would like to continue press 'Y' to continue, or any button to exit:\n ";// asking they would like to conitnue
+		cin >> answer;// sotring answer 
+
+		if (toupper(answer) == 'Y') {//for loop if the person wants to continue
+
+			cout << "how many terms do you want to estimate pi \n";// asking user how many terms to estimate pie
+			cin >> n;// sotirng users number into n variable
+
+			if (n >= 0) {//if statement to sortout for bad data. program will only run if the user inpunt n>=0
+
+				for (x = 0; x < n; x++) {// for loop for computation 
+
+					pi += 4 * (pow((-1), x) / ((2 * x) + 1));// the (+=) is to make pi add continuosly to it's old value
+					
+				}
+				cout << "pie to the " << n << " 'th term is " << pi<<"\n";//prints out pi
+				
+				
+				cout << "press 1 for circumfrence, 2 for area of a circle. 3 to exit back into the main menu \n";// asking user if they want to calculate circumfrence, area, or go back to main menu
+				cin >> r;// saving there input
+				
+				//variable declaration
+				double radius;
+				double sum;
+			
+				switch (r) {//start of swtich statement
+				case 1: // case 1 for circumfrence
+					
+					cout << "please enter the radius in meters";// asking the user to enter radius of the circle
+					cin >> radius;//storing info into a variable
+					
+					sum = 2 * pi*radius;// circumfrence formula
+						cout << "The circumfrence of the circle is "<<sum<<" miles \n";// printing out our results
+						break;// stoping the switch statement and going back to the loop
+				
+				case 2://calculating area
+					cout << "please enter radius in meters \n";//asking the user to enter radius in meters
+					cin >> radius;//user data
+					 sum = pi*pow(radius, 2);// are formula
+					cout << " The area of the circle is " << sum << " miles \n";// printing out our results
+					break;//terminating out swtich statement and going back to loop
+				
+				case 3:// for those who want to go back to the main menu
+					
+						break;// break ends the switch and sends the user back to the loop
+				}
+
+			}
+			if ((n < 0) || (cin.fail())) {//this else if statement executes if the user enters non-integer value for n, or an integer less than 0. 
+				
+				cout << "ERROR!!, you must ennter an integer value that is greater or equal to zero ";//error message
+				
+			}
+		}
+
+		else {//if user wishes to exit the else fuction will execute the code to exit the program
+			cout << "good bye ";//saying bye
+			break;//ecit loop
+		}
+
+	}
+	
+
+	system("pause");//hold visual studio,so that we can input data
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
